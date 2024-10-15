@@ -1,0 +1,36 @@
+.formContainer{
+    background-color: rgba(26, 111, 153, 0.251);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .formWrapper{
+        background-color: white;
+        padding: 20px 60px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        
+        .logo{
+            color:rgb(166, 16, 216);
+            font-weight: bold;
+
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            input{
+                padding: 15px;
+                border: none;
+                width: 250px;
+                border-bottom:  1px solid #a7bcff;
+            }
+        }
+    }
+}
