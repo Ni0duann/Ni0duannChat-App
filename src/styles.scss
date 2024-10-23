@@ -129,11 +129,13 @@
         .user {
           display: flex;
           gap: 10px;
+          align-content: center;
+          justify-content: center;
 
           img {
             background-color: #ddddf7;
-            height: 24px;
-            width: 24px;
+            height: 35px;
+            width: 35px;
             border-radius: 50%;
             object-fit: cover;
           }
