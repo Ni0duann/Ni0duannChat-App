@@ -42,7 +42,7 @@ const Register = () => {
               break;
           }
         },
-        (error) => {
+        () => {
           setErr(true);
         },
         () => {
@@ -63,6 +63,7 @@ const Register = () => {
           });
         }
       );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setErr(true);
     }

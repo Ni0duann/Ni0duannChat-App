@@ -1,4 +1,26 @@
+import { doc, onSnapshot } from "firebase/firestore";
+import { useContext, useEffect, useState } from "react";
+import { db } from "../firebase";
+import { AuthContext } from "../context/AuthContext";
+
 const Chats = () => {
+  const [chats, setChats] = useState<T>([]);
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    const getChats = () => {
+      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+        setChats(doc.data());
+      });
+      return () => {
+        unsub();
+      };
+    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    currentUser.uid && getChats();
+  }, [currentUser.uid]);
+  console.log((chats));
+
   return (
     <div className="chats">
       <div className="userChat">

@@ -4,9 +4,9 @@ import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updat
 import { AuthContext } from "../context/AuthContext";
 
 const Search = () => {
-  const [username, setUsername] = useState("");
-  const [user, setUser] = useState<T>(null);
-  const [err, setErr] = useState(false);
+  const [username, setUsername] = useState<string>("");
+  const [user, setUser] = useState<any>(null);
+  const [err, setErr] = useState<boolean>(false);
 
   const {currentUser} = useContext(AuthContext)
 
@@ -37,10 +37,19 @@ const Search = () => {
     try {
       const res = await getDoc(doc(db,"chats",combinedId));
       if(!res.exists()){
-        await setDoc(doc(db,"chats",combinedId),{messages:[]})
+        // await setDoc(doc(db,"chats",combinedId),{messages:[]})
         
         await updateDoc(doc(db,"userChats",currentUser.uid),{
-          [combinedId+".userInfo"] :{
+          [combinedId+".userInfo" as string] :{
+            uid:user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL
+          },
+          [combinedId+".date"] :serverTimestamp()
+        });
+
+        await updateDoc(doc(db,"userChats",user.uid),{
+          [combinedId+".userInfo" as string] :{
             uid:currentUser.uid,
             displayName: currentUser.displayName,
             photoURL: currentUser.photoURL
@@ -51,6 +60,8 @@ const Search = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setErr(true)
+      console.log(err);
+      
     }
     setUser(null)
     setUsername("")
