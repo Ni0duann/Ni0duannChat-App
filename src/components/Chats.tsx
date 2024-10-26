@@ -56,7 +56,7 @@ const Chats = () => {
 
   return (
     <div className="chats">
-      {Object.entries(chats)?.sort((a:any,b:any)=>b[1].date - a[1].date).map((chat) => (
+      {chats && Object.entries(chats)?.sort((a:any,b:any)=>b[1].date - a[1].date).map((chat) => (
         
         <div className="userChat" key={chat[0]} onClick={()=>handleSlect(chat[1].userInfo)}>
           <img
