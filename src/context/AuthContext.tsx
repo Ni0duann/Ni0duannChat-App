@@ -3,24 +3,27 @@ import { auth } from "../firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 
 interface AuthContextProps {
-  currentUser: any;
+  currentUser: UserInterface ;
 }
-
-export const AuthContext = createContext<AuthContextProps>({
-  currentUser: null,
-});
+interface UserInterface {
+  uid: string;
+    photoURL: string;
+    displayName: string;
+}
 
 interface AuthContextProviderProps {
   children: ReactNode;
 }
+export const AuthContext = createContext<AuthContextProps>();
+
+
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const [currentUser, setCurrentUser] = useState<T>(null);
+  const [currentUser, setCurrentUser] = useState<UserInterface | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
       setCurrentUser(user);
-      console.log(user);
     });
     return () => unsubscribe();
   }, []);
